@@ -47,6 +47,7 @@ const updateGrid = (grid: boolean[][]): boolean[][] => {
                         // check if the cell is occupied, if not occupied, occupy neighbour cell
                         if (!grid[rowIndex][colIndex]) {
                             newGrid[rowIndex][colIndex] = true
+                            break;
                         }
                     }
                 }
@@ -66,8 +67,9 @@ const App: React.FC = () => {
     const [isRunning, setIsRunning] = useState<boolean>(false)
     const [interval, setInterval] = useState<number>(1000)
     
-    // if the simulation is running, run the interval function to update the grid and simulate cell division
+    // 
     useEffect(() => {
+        // if the simulation is running, run updateGrid with the grid
         if (isRunning) {
             const timer = window.setInterval(() => {
                 setGrid((prevGrid) => updateGrid(prevGrid))
@@ -79,7 +81,14 @@ const App: React.FC = () => {
         <div className='app'>
             <div className='main-container'>
                 <h1>Bacteria Col</h1>
-
+                <Grid 
+                    grid={grid}
+                    setGrid={setGrid}
+                />
+                <Controls 
+                    isRunning={isRunning}
+                    setIsRunning={setIsRunning}
+                />
             </div>
         </div>
     )

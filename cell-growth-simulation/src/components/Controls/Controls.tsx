@@ -1,10 +1,11 @@
 import React from 'react';
 
-const Controls = () => {
+const Controls = ({ isRunning, setIsRunning }) => {
+
+    
 
     return (
         <div>
-
         </div>
     );
 };
