@@ -1,0 +1,19 @@
+.controls-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.simulation-run-controls-container {
+    width: 5rem;
+}
+
+.start-stop-button {
+    
+}
+
+.interval-speed-select {
+    width: 5rem;
+}

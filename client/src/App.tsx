@@ -23,6 +23,7 @@ const createGrid = (rows: number, cols: number): boolean[][] => {
 /* 
     searches for an empty adjacent cell from every bacteria occupied cell and updates 
     the grid with the inserted bacteria, then returns the updated grid
+    time complexity O(4n^2)
 */
 const updateGrid = (grid: boolean[][]): boolean[][] => {
     // create copy of grid by mapping each nested array, then use slice to copy array
@@ -65,17 +66,43 @@ const App: React.FC = () => {
     // initialize useStates for grid, is simulation running?, division interval (ms)
     const [grid, setGrid] = useState<boolean[][]>(createGrid(20, 20))
     const [isRunning, setIsRunning] = useState<boolean>(false)
+    const [selectedMultipier, setSelectedMultipier] = useState(1)
     const [interval, setInterval] = useState<number>(1000)
     
-    // 
+    const intervalRef = useRef<number>(interval)
+
+    // update intervalRef when interval changes
+    useEffect(() => {
+        intervalRef.current = interval
+    }, [interval])
+    
+
+    // starts updating grid or clears the interval when simulation starts/stops or the interval changes
     useEffect(() => {
         // if the simulation is running, run updateGrid with the grid
         if (isRunning) {
-            const timer = window.setInterval(() => {
+            // runs defined instructions every interval (ms) and stores intervalID in intervalRef.current
+            intervalRef.current = window.setInterval(() => {
                 setGrid((prevGrid) => updateGrid(prevGrid))
-            }, interval)
+            }, intervalRef.current)
+        } else {
+            // clear interval with the current intervalID
+            clearInterval(intervalRef.current)
         }
-    }, [isRunning])
+    }, [isRunning, interval])
+
+    // sets the isRunning state to start or stop running T/F
+    const handleStartStop = () => {
+        setIsRunning(!isRunning)
+    }
+
+    // change the interval change from selection options
+    const handleIntervalChange = (multiplier: number) => {
+        // **DIVIDE TO SPEED UP INTERVAL** NOT MULTPLY (SLOWS/INCREASES INTERVAL) so dumb
+        setInterval(1000 / multiplier)
+        // update the selected multplier value in Controls component
+        setSelectedMultipier(multiplier)
+    }
 
     return (
         <div className='app'>
@@ -87,7 +114,9 @@ const App: React.FC = () => {
                 />
                 <Controls 
                     isRunning={isRunning}
-                    setIsRunning={setIsRunning}
+                    selectedMultipier={selectedMultipier}
+                    handleStartStop={handleStartStop}
+                    handleIntervalChange={handleIntervalChange}
                 />
             </div>
         </div>

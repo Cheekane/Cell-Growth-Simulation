@@ -1,7 +1,7 @@
 import React from 'react';
 import Cell from '../Cell/Cell';
 
-// define grid interface properties: 2D boolean array and setState method typeof boolean[][]
+// grid props from App
 interface GridProps {
     grid: boolean[][];
     setGrid: React.Dispatch<React.SetStateAction<boolean[][]>>;
