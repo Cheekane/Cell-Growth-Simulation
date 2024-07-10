@@ -1,19 +1,73 @@
+* {
+    font-size: 12pt;
+}
+
 .controls-container {
     width: 100%;
+    height: 5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.controls-menu-container {
+    width: 50%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 1px 1px #ccc;
+}
+
+.simulation-run-controls-container {
+    width: 12rem;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.start-button {
+    width: 4rem;
+    height: 2rem;
+    background-color: rgb(50, 255, 50);
+    border: 0;
+    border-radius: 5px;
+    box-shadow: 1px 1px #ddd;
+}
+
+.stop-button {
+    width: 4rem;
+    height: 2rem;
+    background-color: rgb(255, 50, 50);
+    border: 0;
+    border-radius: 5px;
+    box-shadow: 1px 1px #ddd;
+}
+
+.reset-button {
+    width: 4rem;
+    height: 2rem;
+    border: 0;
+    border-radius: 5px;
+    box-shadow: 1px 1px #ddd;
+}
+
+.interval-select-speed-container {
+    width: 10rem;
     height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.simulation-run-controls-container {
-    width: 5rem;
-}
-
-.start-stop-button {
-    
-}
-
 .interval-speed-select {
-    width: 5rem;
+    width: 4rem;
+    height: 2rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 1px 1px #ddd;
 }

@@ -96,6 +96,12 @@ const App: React.FC = () => {
         setIsRunning(!isRunning)
     }
 
+    // resets the simulation and creates new grid
+    const handleReset = () => {
+        setIsRunning(false)
+        setGrid(createGrid(20, 20))
+    }
+
     // change the interval change from selection options
     const handleIntervalChange = (multiplier: number) => {
         // **DIVIDE TO SPEED UP INTERVAL** NOT MULTPLY (SLOWS/INCREASES INTERVAL) so dumb
@@ -117,6 +123,7 @@ const App: React.FC = () => {
                     selectedMultipier={selectedMultipier}
                     handleStartStop={handleStartStop}
                     handleIntervalChange={handleIntervalChange}
+                    handleReset={handleReset}
                 />
             </div>
         </div>
