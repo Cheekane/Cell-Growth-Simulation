@@ -5,8 +5,8 @@ import './Controls.css'
 interface ControlProps {
     isRunning: boolean;
     selectedMultiplier: number;
-    handleReset: () => void;
     handleStartStop: () => void;
+    handleReset: () => void;
     handleIntervalChange: (multiplier: number) => void;
     handleGridSizeChange: (numOfRows: number, numOfCols: number) => void;
     rows: number;

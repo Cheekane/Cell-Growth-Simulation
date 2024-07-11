@@ -146,8 +146,8 @@ const App: React.FC = () => {
 
     // handles grid dimension change and sets rows, cols and new grid with dimensions, then resets simulation
     const handleGridSizeChange = (numOfRows: number, numOfCols: number) => {
-        setRows(numOfRows)
-        setCols(numOfCols)
+        setRows(prevRows => numOfRows)
+        setCols(prevCols => numOfCols)
         setGrid(createGrid(numOfRows, numOfCols))
         setIsRunning(false)
     }
