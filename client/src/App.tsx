@@ -63,7 +63,6 @@ const updateGrid = (grid: boolean[][]): boolean[][] => {
     includes division interval and running state
 */
 const App: React.FC = () => {
-    // initialize useStates for grid, is simulation running?, division interval (ms)
     const [rows, setRows] = useState<number>(20)
     const [cols, setCols] = useState<number>(20)
     const [grid, setGrid] = useState<boolean[][]>(createGrid(rows, cols))
@@ -78,7 +77,6 @@ const App: React.FC = () => {
     useEffect(() => {
         timerID.current = interval
     }, [interval])
-    
 
     // starts updating grid or clears the interval when simulation starts/stops or the interval changes
     useEffect(() => {
@@ -99,21 +97,21 @@ const App: React.FC = () => {
                 clearInterval(timerID.current)
             }
         }
-    }, [isRunning, interval, rows, cols])
+    }, [isRunning, interval])
 
     // mounts spacebar listener on render
     useEffect(() => {
         // when keyboard event 'Space' is pressed run the handleStartStop function
         const handleKeyDown = (event: KeyboardEvent) => {
-        if (event.code === 'Space') {
-            // prevents component refresh
-            event.preventDefault()
-            handleStartStop()
-        } else if (event.code === 'KeyR') {
-            event.preventDefault()
-            handleReset()
+            if (event.code === 'Space') {
+                // prevents component refresh
+                event.preventDefault()
+                handleStartStop()
+            } else if (event.code === 'KeyR') {
+                event.preventDefault()
+                handleReset()
+            }
         }
-    }
         // adds the spacebar event listener
         window.addEventListener('keydown', handleKeyDown)
         // removes the event listner when unmounting 
@@ -132,7 +130,8 @@ const App: React.FC = () => {
         setIsRunning(false)
         if (timerID.current !== null) {
             clearInterval(timerID.current)
-            timerID.current = null // reset timerID to null
+            // reset timerID to null
+            timerID.current = null 
         }
         setGrid(createGrid(rows, cols))
     }
@@ -150,7 +149,7 @@ const App: React.FC = () => {
         setRows(numOfRows)
         setCols(numOfCols)
         setGrid(createGrid(numOfRows, numOfCols))
-        handleReset()
+        setIsRunning(false)
     }
 
     return (
