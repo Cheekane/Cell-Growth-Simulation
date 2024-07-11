@@ -139,7 +139,7 @@ const App: React.FC = () => {
 
     // change the interval change from selection options
     const handleIntervalChange = (multiplier: number) => {
-        // **DIVIDE TO SPEED UP INTERVAL** NOT MULTPLY (SLOWS/INCREASES INTERVAL) so dumb
+        // ***DIVIDE TO SPEED UP INTERVAL*** NOT MULTPLY (SLOWS/INCREASES INTERVAL) SO STUPID
         setInterval(1000 / multiplier)
         // update the selected multplier value in Controls component
         setSelectedMultiplier(multiplier)

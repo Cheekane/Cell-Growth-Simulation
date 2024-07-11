@@ -1,4 +1,5 @@
 import React from 'react';
+import './Cell.css'
 
 // define interface for cell properties: boolean and onClick method
 interface CellProps {

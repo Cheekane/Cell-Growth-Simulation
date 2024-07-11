@@ -10,7 +10,3 @@
   border: 1px solid #ccc;
   cursor: pointer;
 }
-
-.cell.occupied {
-  background-color: rgb(0, 255, 0);
-}

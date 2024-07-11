@@ -1,0 +1,9 @@
+.cell {
+}
+
+.cell.occupied {
+    background-image: url(../../images/ahh.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
