@@ -1,5 +1,6 @@
 import React from 'react';
 import Cell from '../Cell/Cell';
+import './Grid.css'
 
 // grid props from App
 interface GridProps {
@@ -24,12 +25,19 @@ const Grid: React.FC<GridProps> = ({ grid, setGrid }) => {
         setGrid(newGrid);
     }
     
+    // dynamically set the grid-template-columns style to the set column size
     return (
-        <div className='grid'>
+        <div className='grid' style={{ 
+            width: `fit-content`,
+            height: `fit-content`,
+            gridTemplateColumns: `repeat(${grid.length}, 20px)`,
+            gridTemplateRows: `repeat(${grid[0].length}, 20px)`
+        }}>
             {grid.map((row, rowIndex) => (
-                <div className='row'>
+                <div className='col' key={rowIndex}>
                     {row.map((cell, colIndex) => (
                         <Cell
+                            key={colIndex}
                             occupied={cell}
                             onClick={() => handleCellClick(rowIndex, colIndex)}
                         />

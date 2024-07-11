@@ -1,24 +1,42 @@
-import React from 'react';
+import React, { SetStateAction, useState } from 'react';
 import './Controls.css'
 
 // control props from App
 interface ControlProps {
     isRunning: boolean;
     selectedMultiplier: number;
+    handleReset: () => void;
     handleStartStop: () => void;
     handleIntervalChange: (multiplier: number) => void;
-    handleReset: () => void;
+    handleGridSizeChange: (numOfRows: number, numOfCols: number) => void;
+    rows: number;
+    cols: number;
 }
 
 /* 
     simulation control component of the simulation, start, stop, pause, change interval selection
 */
-const Controls: React.FC<ControlProps> = ({ isRunning, selectedMultiplier, handleStartStop, handleIntervalChange, handleReset }) => {
+const Controls: React.FC<ControlProps> = ({ isRunning, selectedMultiplier, handleStartStop, handleReset, handleIntervalChange, handleGridSizeChange, rows, cols }) => {
+    const [numOfRows, setNumOfRows] = useState<number>(rows)
+    const [numOfCols, setNumOfCols] = useState<number>(cols)
+    
     // change the interval change from selection options
     const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
         // convert to float and set the multiplier and interval
         const multiplier = parseFloat(event.target.value)
         handleIntervalChange(multiplier)
+    }
+
+    // takes the event and setter, setNumOfRows or setNumOfCols to update the useState variable
+    const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>, setter: React.Dispatch<SetStateAction<number>>) => {
+        // convert input string into integer
+        const value = parseInt(event.target.value)
+        setter(value)
+    }
+
+    // handles grid size set
+    const handleSetClick = () => {
+        handleGridSizeChange(numOfRows, numOfCols)
     }
 
     return (
@@ -40,6 +58,27 @@ const Controls: React.FC<ControlProps> = ({ isRunning, selectedMultiplier, handl
                         <option value={0.5}>x0.5</option>
                         <option value={0.25}>x0.25</option>
                     </select>
+                </div>
+                <div className='grid-size-input-container'>
+                    <label>size:</label>
+                    <input 
+                        className='grid-size-input'
+                        type='number'
+                        required
+                        value={numOfRows}
+                        onChange={event => handleInputChange(event, setNumOfRows)}
+                    />
+                    x
+                    <input 
+                        className='grid-size-input'
+                        type='number'
+                        required
+                        value={numOfCols}
+                        onChange={event => handleInputChange(event, setNumOfCols)}
+                    />
+                </div>
+                <div className='grid-size-set-button-container'>
+                    <button className='grid-size-set-button' onClick={handleSetClick}>set</button>
                 </div>
             </div>
         </div>

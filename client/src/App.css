@@ -3,49 +3,14 @@
   font-family: Arial, Helvetica, sans-serif;
 }
 
-.grid {
-  display: grid;
-  grid-template-columns: repeat(20, 20px);
-  gap: 1px;
-  justify-content: center;
-  margin: 20px auto;
-}
-
 .cell {
   width: 20px;
   height: 20px;
   background-color: white;
   border: 1px solid #ccc;
   cursor: pointer;
-  transition: background-color 0.2s ease;
 }
 
 .cell.occupied {
-  background-color: green;
-}
-
-.controls {
-  margin-top: 10px;
-}
-
-.controls button {
-  margin-right: 5px;
-  padding: 5px 10px;
-  cursor: pointer;
-  border: none;
-  background-color: #007bff;
-  color: white;
-  border-radius: 3px;
-  transition: background-color 0.2s ease;
-}
-
-.controls button:hover {
-  background-color: #0056b3;
-}
-
-.controls input {
-  margin-right: 5px;
-  padding: 5px;
-  border: 1px solid #ccc;
-  border-radius: 3px;
+  background-color: rgb(0, 255, 0);
 }

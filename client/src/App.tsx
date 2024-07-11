@@ -11,9 +11,9 @@ const createGrid = (rows: number, cols: number): boolean[][] => {
     const grid: boolean[][] = []
 
     // iterate through each row and column and fill each cell with false unoccupied flag
-    for (let i = 0; i < rows; i++) {
+    for (let i = 0; i < cols; i++) {
         grid[i] = []
-        for (let j = 0; j < cols; j++) {
+        for (let j = 0; j < rows; j++) {
             grid[i][j] = false
         }
     }
@@ -29,7 +29,7 @@ const updateGrid = (grid: boolean[][]): boolean[][] => {
     // create copy of grid by mapping each nested array, then use slice to copy array
     const newGrid = grid.map(row => row.slice())
 
-    // iterate through grid rows and columns
+    // iterate through grid columns and rows
     for (let row = 0; row < grid.length; row++) {
         for (let col = 0; col < grid[row].length; col++) {
             // if there is an occupied cell in the grid try to divide into empty cell
@@ -64,7 +64,10 @@ const updateGrid = (grid: boolean[][]): boolean[][] => {
 */
 const App: React.FC = () => {
     // initialize useStates for grid, is simulation running?, division interval (ms)
-    const [grid, setGrid] = useState<boolean[][]>(createGrid(20, 20))
+    const [rows, setRows] = useState<number>(20)
+    const [cols, setCols] = useState<number>(20)
+    const [grid, setGrid] = useState<boolean[][]>(createGrid(rows, cols))
+
     const [isRunning, setIsRunning] = useState<boolean>(false)
     const [selectedMultiplier, setSelectedMultiplier] = useState(1)
     const [interval, setInterval] = useState<number>(1000)
@@ -90,37 +93,38 @@ const App: React.FC = () => {
                 setGrid((prevGrid) => updateGrid(prevGrid))
             }, interval)
         }
-
-        // cleanup function to clear interval when component unmounts or dependencies change
+        // clears interval when component unmounts or dependency changes
         return () => {
             if (timerID.current !== null) {
                 clearInterval(timerID.current)
             }
         }
-    }, [isRunning, interval])
+    }, [isRunning, interval, rows, cols])
 
     // mounts spacebar listener on render
     useEffect(() => {
         // when keyboard event 'Space' is pressed run the handleStartStop function
-        const handleSpacebarDown = (event: KeyboardEvent) => {
+        const handleKeyDown = (event: KeyboardEvent) => {
         if (event.code === 'Space') {
             // prevents component refresh
             event.preventDefault()
             handleStartStop()
+        } else if (event.code === 'KeyR') {
+            event.preventDefault()
+            handleReset()
         }
     }
-
-        window.addEventListener('keydown', handleSpacebarDown)
-
-        // cleanup function when eventlistener unmounts
+        // adds the spacebar event listener
+        window.addEventListener('keydown', handleKeyDown)
+        // removes the event listner when unmounting 
         return () => {
-            window.addEventListener('keydown', handleSpacebarDown)
+            window.removeEventListener('keydown', handleKeyDown)
         }
     }, [])
 
     // sets the isRunning state to start or stop running T/F
     const handleStartStop = () => {
-        setIsRunning(!isRunning)
+        setIsRunning(prevIsRunning => !prevIsRunning)
     }
 
     // resets the simulation and creates new grid
@@ -130,7 +134,7 @@ const App: React.FC = () => {
             clearInterval(timerID.current)
             timerID.current = null // reset timerID to null
         }
-        setGrid(createGrid(20, 20))
+        setGrid(createGrid(rows, cols))
     }
 
     // change the interval change from selection options
@@ -141,10 +145,18 @@ const App: React.FC = () => {
         setSelectedMultiplier(multiplier)
     }
 
+    // handles grid dimension change and sets rows, cols and new grid with dimensions, then resets simulation
+    const handleGridSizeChange = (numOfRows: number, numOfCols: number) => {
+        setRows(numOfRows)
+        setCols(numOfCols)
+        setGrid(createGrid(numOfRows, numOfCols))
+        handleReset()
+    }
+
     return (
         <div className='app'>
             <div className='main-container'>
-                <h1>Bacteria Col</h1>
+                <h1>Cell Growth Simulator</h1>
                 <Grid 
                     grid={grid}
                     setGrid={setGrid}
@@ -153,8 +165,11 @@ const App: React.FC = () => {
                     isRunning={isRunning}
                     selectedMultiplier={selectedMultiplier}
                     handleStartStop={handleStartStop}
-                    handleIntervalChange={handleIntervalChange}
                     handleReset={handleReset}
+                    handleIntervalChange={handleIntervalChange}
+                    handleGridSizeChange={handleGridSizeChange}
+                    rows={rows}
+                    cols={cols}
                 />
             </div>
         </div>
