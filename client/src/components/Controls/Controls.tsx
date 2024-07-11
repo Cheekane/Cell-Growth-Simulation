@@ -4,7 +4,7 @@ import './Controls.css'
 // control props from App
 interface ControlProps {
     isRunning: boolean;
-    selectedMultipier: number;
+    selectedMultiplier: number;
     handleStartStop: () => void;
     handleIntervalChange: (multiplier: number) => void;
     handleReset: () => void;
@@ -13,7 +13,7 @@ interface ControlProps {
 /* 
     simulation control component of the simulation, start, stop, pause, change interval selection
 */
-const Controls: React.FC<ControlProps> = ({ isRunning, selectedMultipier, handleStartStop, handleIntervalChange, handleReset }) => {
+const Controls: React.FC<ControlProps> = ({ isRunning, selectedMultiplier, handleStartStop, handleIntervalChange, handleReset }) => {
     // change the interval change from selection options
     const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
         // convert to float and set the multiplier and interval
@@ -32,7 +32,7 @@ const Controls: React.FC<ControlProps> = ({ isRunning, selectedMultipier, handle
                 </div>
                 <div className='interval-select-speed-container'>
                     <label>speed: &nbsp;</label>
-                    <select className='interval-speed-select' value={selectedMultipier} onChange={handleChange}>
+                    <select className='interval-speed-select' value={selectedMultiplier} onChange={handleChange}>
                         <option value={8}>x8</option>
                         <option value={4}>x4</option>
                         <option value={2}>x2</option>

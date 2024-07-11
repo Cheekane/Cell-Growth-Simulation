@@ -33,9 +33,9 @@ const Grid: React.FC<GridProps> = ({ grid, setGrid }) => {
                             occupied={cell}
                             onClick={() => handleCellClick(rowIndex, colIndex)}
                         />
-                    ))};
+                    ))}
                 </div>
-            ))};
+            ))}
         </div>
     );
 };

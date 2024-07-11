@@ -60,15 +60,21 @@ __NOTES__
     what would a fast/optimal solution be to finding and dividing each cell
 
 __IDEAS/SOLUTIONS__
-    PROBLEM 1
+    PROBLEM 1 -SOLVED-
         cells wont divide at the same exact time, and will initialize the spot before the other
         cell divides, so the space would be flagged as occupied and no collision would occur
+
+        solution: update/add each bacteria to an empty neighbouring cell, then
     
-    PROBLEM 2
+    PROBLEM 2 -SOLVED-
         maybe create a global clock and the cells base their division times based on the clock
+
+        solution: use the built in interval function to run a function every interval (ms)
     
     PROBLEM 3
         maybe use spacebar as a start and pause action listener?
     
-    PROBLEM 4
+    PROBLEM 4 -SOLVED-
         randomization? data-structure? math?
+        
+        solution: 
