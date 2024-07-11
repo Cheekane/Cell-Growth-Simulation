@@ -118,7 +118,7 @@ const App: React.FC = () => {
         return () => {
             window.removeEventListener('keydown', handleKeyDown)
         }
-    }, [])
+    }, [rows, cols])
 
     // sets the isRunning state to start or stop running T/F
     const handleStartStop = () => {
@@ -131,7 +131,7 @@ const App: React.FC = () => {
         if (timerID.current !== null) {
             clearInterval(timerID.current)
             // reset timerID to null
-            timerID.current = null 
+            timerID.current = null
         }
         setGrid(createGrid(rows, cols))
     }
@@ -146,8 +146,12 @@ const App: React.FC = () => {
 
     // handles grid dimension change and sets rows, cols and new grid with dimensions, then resets simulation
     const handleGridSizeChange = (numOfRows: number, numOfCols: number) => {
-        setRows(prevRows => numOfRows)
-        setCols(prevCols => numOfCols)
+        if (numOfRows <= 0 || numOfRows > 99 || numOfCols <= 0 || numOfCols > 99) {
+            alert('Grid rows and columns must be values 1-99')
+            return
+        }
+        setRows(numOfRows);
+        setCols(numOfCols);
         setGrid(createGrid(numOfRows, numOfCols))
         setIsRunning(false)
     }

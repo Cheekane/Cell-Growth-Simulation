@@ -41,7 +41,6 @@ use the npm script to run the app
 keyboard controls
 - spacebar to start/stop the simulation
 - 'r' to reset the simulation
-- enter to set the grid dimensions
 
 &nbsp;
 

@@ -65,6 +65,8 @@ const Controls: React.FC<ControlProps> = ({ isRunning, selectedMultiplier, handl
                         className='grid-size-input'
                         type='number'
                         required
+                        min="1"
+                        max="99"
                         value={numOfRows}
                         onChange={event => handleInputChange(event, setNumOfRows)}
                     />
@@ -73,6 +75,8 @@ const Controls: React.FC<ControlProps> = ({ isRunning, selectedMultiplier, handl
                         className='grid-size-input'
                         type='number'
                         required
+                        min="1"
+                        max="99"
                         value={numOfCols}
                         onChange={event => handleInputChange(event, setNumOfCols)}
                     />
