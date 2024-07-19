@@ -125,7 +125,7 @@ The `Controls` component contains the UI to control the start, stop, reset and s
 
         solution: use the built in interval function to run a function every interval (ms).
     
-### **Problem 4 solution**
+### **Problem 3 solution**
         maybe use spacebar as a start and pause action listener?
 
         solution: added eventlistener to carry out functions similar to the start, stop, reset and set buttons.
